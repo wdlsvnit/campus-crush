@@ -4,6 +4,12 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const port = process.env.PORT || 3000;
+const mongoose = require('mongoose');
+const user = require('./models/user.js');
+
+// console.log(user);
+
+mongoose.connect('mongodb://sumedh:campus-crush@ds129706.mlab.com:29706/campus-crush');
 
 app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
@@ -14,7 +20,11 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  console.log(req.body);
+  console.log('post received');
+  let newMajnu = new user();
+  newMajnu.firstname = 'sumedh';
+  console.log(newMajnu);
+  res.render('index');
 });
 
 server.listen(port, () => {
