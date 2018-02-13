@@ -8,22 +8,27 @@
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
 </head>
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #566573">
+    <img src="img/logo.png" width="50px" height="50px" alt="">
+    <a class="navbar-brand" href="/">Campus Crush</a>
+  </nav>
   <div class="jumbotron">
     <div class="main-form container">
-      <h1>Campus crush</h1><br><br>
       <form action = "/" method = "POST">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="name" class="form-control" id="name" aria-describedby="nameOfPerson" name = "name" placeholder="Enter name">
-          <small id="nameHelp" class="form-text text-muted">We'll never share your name with anyone else.</small>
+          <small id="nameHelp" class="form-text text-muted">Your name</small>
         </div>
         <div class="form-group">
-          <label for="facebook link">Facebook profile link</label>
-          <input type="text" class="form-control" name="ownfblink" placeholder="Facebook Profile link">
+          <label for="facebook link">Your Facebook handle</label>
+          <input type="text" class="form-control" name="ownfblink" placeholder="Your Facebook handle">
+          <small class="form-text text-muted">If my facebook profile link is "https://facebook.com/johndoe" then my handle is johndoe.</small>
         </div>
         <div class="form-group">
-          <label for="facebook link">Crush's Facebook profile link</label>
-          <input type="text" class="form-control" name="crushfblink" placeholder="Crush's facebook profile link">
+          <label for="facebook link">Crush's Facebook handle</label>
+          <input type="text" class="form-control" name="crushfblink" placeholder="Crush's facebook handle">
+          <small class="form-text text-muted">Similar to the above</small>
         </div>
         <div class="form-group">
           <label for="facebook link">Contact Number</label>
@@ -36,6 +41,11 @@
         </div><br>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+    </div>
+  </div>
+  <div id="">
+    <div class="container">
+      <p class="footer-block">Made with &hearts; at <a href="https://www.facebook.com/webdevlabs/">WebDevlabs</a></p>
     </div>
   </div>
 </body>

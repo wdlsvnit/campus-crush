@@ -4,6 +4,7 @@ const key = "this is a very long key.";
 const encryptor = require('simple-encryptor')(key);
 const user = require('./models/user');
 const configs = require('./config');
+const request = require('request');
 
 function encrypt(data) {
   return new Promise((resolve, reject) => {
@@ -52,20 +53,29 @@ function checkForMatch(data) {
 }
 
 function makeCall(from, to) {
-  const request = require('request');
   // let dataString = 'From=XXXXX30240&To=XXXXX40682&CallerId=0XXXXXX4890';
   let dataString = `From=${from}&To=${to}&CallerId=${configs.callerId}`
+  console.log(`Request: ${dataString}`);
   let options = {
-      url: `https://${configs.sid}:${configs.token}@api.exotel.com/v1/Accounts/${configs.sid}/Calls/connect`,
+      url: `https://${configs.sid}:${configs.token}@api.exotel.com/v1/Accounts/${configs.sid}/Calls/connect.json`,
       method: 'POST',
       body: dataString
   };
-  function callback(error, response, body) {
-      if (!error && response.statusCode == 200) {
-          console.log(body);
-      }
-  }
-  request(options, callback);
+  console.log(options);
+  // function callback(error, response, body) {
+  //     if (!error && response.statusCode == 200) {
+  //         console.log(body);
+  //     } else {
+  //       console.log(error);
+  //     }
+  // }
+  request(options, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+    } else {
+      console.log(response.statusCode);
+    }
+  });
 }
 
 module.exports = {
