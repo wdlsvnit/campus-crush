@@ -21,6 +21,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/thankyou', (req, res) => {
+  res.render('thankyou');
+});
+
 app.post('/', (req, res) => {
   let newUser = new user();
   newUser.name = req.body.name;
@@ -47,18 +51,7 @@ app.post('/', (req, res) => {
       .catch(error => { console.log(error); });
 
   });
-
-  // utils.encrypt(newUser).then(data => {
-  //   encryptedUser.data = data;
-  //   console.log(encryptedUser);
-  //   encryptedUser.save((err, data) => {
-  //     if (err) {
-  //       console.log(err);
-  //     }
-  //     console.log(`Saved data: ${data}`);
-  //   });
-  // });
-  res.render('index');
+  res.redirect('/thankyou');
 });
 
 server.listen(port, () => {
