@@ -14,29 +14,29 @@
   </nav>
   <div class="jumbotron">
     <div class="main-form container">
-      <form action = "/" method = "POST">
+      <form action = "/" method = "POST" class="needs-validation" novalidate>
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="name" class="form-control" id="name" aria-describedby="nameOfPerson" name = "name" placeholder="Enter name">
+          <input type="name" class="form-control" id="name" aria-describedby="nameOfPerson" name = "name" placeholder="Enter name" required>
           <small id="nameHelp" class="form-text text-muted">Your name</small>
         </div>
         <div class="form-group">
           <label for="facebook link">Your Facebook handle</label>
-          <input type="text" class="form-control" name="ownfblink" placeholder="Your Facebook handle">
+          <input type="text" class="form-control" name="ownfblink" placeholder="Your Facebook handle" required>
           <small class="form-text text-muted">If my facebook profile link is "https://facebook.com/johndoe" then my handle is johndoe.</small>
         </div>
         <div class="form-group">
           <label for="facebook link">Crush's Facebook handle</label>
-          <input type="text" class="form-control" name="crushfblink" placeholder="Crush's facebook handle">
+          <input type="text" class="form-control" name="crushfblink" placeholder="Crush's facebook handle" required>
           <small class="form-text text-muted">Similar to the above</small>
         </div>
         <div class="form-group">
-          <label for="facebook link">Contact Number</label>
-          <input type="number" class="form-control" name="ownconumber" placeholder="Contact mobile number">
-          <small id="contactHelp" class="form-text text-muted">Contact number in format : +91 XXXXX XXXXX</small>
+          <label for="facebook link">Your Contact Number</label>
+          <input type="number" class="form-control" name="ownconumber" placeholder="Your Contact number(Mobile)" required>
+          <small id="contactHelp" class="form-text text-muted">The Contact Number in format without the country code : XXXXX XXXXX</small>
         </div>
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" name="acceptterms">
+          <input type="checkbox" class="form-check-input" name="acceptterms" required>
           <label class="form-check-label" for="exampleCheck1">I accept all terms and conditions</label>
         </div><br>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -49,4 +49,24 @@
     </div>
   </div>
 </body>
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
 </html>
