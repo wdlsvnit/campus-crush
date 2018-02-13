@@ -5,12 +5,13 @@ const app = express();
 const server = require('http').Server(app);
 const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
-const user = require('./models/user');
+const user = require('./models/encryptedUser');
 const bodyParser = require('body-parser');
+// const utils = require('./utils');
+// const utils = require('./utils');
+const utils = require('./utils');
+// console.log(utils.encrypt('sumedh'));
 
-// console.log(user);
-
-// mongoose.connect('mongodb://kevin:kevin@ds129706.mlab.com:29706/campus-crush');
 mongoose.connect('mongodb://sumedh:campus-crush@ds129706.mlab.com:29706/campus-crush');
 
 app.set('view engine', 'hbs');
@@ -23,17 +24,23 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  let newMajnu = new user();
-  newMajnu.name = req.body.name;
-  newMajnu.your_fb = req.body.ownfblink;
-  newMajnu.crush_fb = req.body.crushfblink;
-  newMajnu.mobile_no = req.body.ownconumber;
-  newMajnu.created_at = new Date();
-  newMajnu.save((err, data) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(data);
+  let newUser = {};
+  let encryptedUser = new user();
+  newUser.name = req.body.name;
+  newUser.your_fb = req.body.ownfblink;
+  newUser.crush_fb = req.body.crushfblink;
+  newUser.mobile_no = req.body.ownconumber;
+  newUser.created_at = new Date();
+
+  utils.encrypt(newUser).then(data => {
+    encryptedUser.data = data;
+    console.log(encryptedUser);
+    encryptedUser.save((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(`Saved data: ${data}`);
+    });
   });
   res.render('index');
 });
