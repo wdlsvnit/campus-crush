@@ -7,6 +7,7 @@ const userschema = new Schema({
   your_fb : { type : String, required : true },
   crush_fb : { type : String, required : true },
 	mobile_no: { type: Number, required: true },
+	matched_with: { type: Object, required: false },
 	created_at : Date
 });
 

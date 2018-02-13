@@ -2,6 +2,8 @@
 
 const key = "this is a very long key.";
 const encryptor = require('simple-encryptor')(key);
+const user = require('./models/user');
+const configs = require('./config');
 
 function encrypt(data) {
   return new Promise((resolve, reject) => {
@@ -29,7 +31,46 @@ function decrypt(data) {
   });
 }
 
+function checkForMatch(data) {
+  return new Promise((resolve, reject) => {
+    try {
+      user.findOne({ "your_fb": data.crush_fb }, (err, match) => {
+        console.log(`Match: ${match}`);
+        if (!match) {
+          console.log('no match found');
+        }
+        else if (match.your_fb == data.crush_fb) {
+          console.log(`${match.name} matched with ${data.name}`);
+          resolve({ "matches": [ match.mobile_no, data.mobile_no ]});
+        }
+      });
+    }
+    catch (e) {
+      reject({ "error": e });
+    }
+  });
+}
+
+function makeCall(from, to) {
+  const request = require('request');
+  // let dataString = 'From=XXXXX30240&To=XXXXX40682&CallerId=0XXXXXX4890';
+  let dataString = `From=${from}&To=${to}&CallerId=${configs.callerId}`
+  let options = {
+      url: `https://${configs.sid}:${configs.token}@api.exotel.com/v1/Accounts/${configs.sid}/Calls/connect`,
+      method: 'POST',
+      body: dataString
+  };
+  function callback(error, response, body) {
+      if (!error && response.statusCode == 200) {
+          console.log(body);
+      }
+  }
+  request(options, callback);
+}
+
 module.exports = {
   encrypt,
-  decrypt
+  decrypt,
+  checkForMatch,
+  makeCall
 }

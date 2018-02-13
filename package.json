@@ -13,6 +13,7 @@
     "express": "^4.16.2",
     "hbs": "^4.0.1",
     "mongoose": "^5.0.4",
+    "nodemon": "^1.14.12",
     "simple-encryptor": "^1.1.1"
   }
 }
